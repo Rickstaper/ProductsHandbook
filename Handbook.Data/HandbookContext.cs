@@ -1,4 +1,5 @@
-﻿using Handbook.Data.Models;
+﻿using Handbook.Data.ConfigurationModels;
+using Handbook.Data.Models;
 using Handbook.Data.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,6 +25,12 @@ namespace Handbook.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(ConnectionConfiguration.GetConnectionString("DefaultConnection"));
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new PriceConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
         }
     }
 }
